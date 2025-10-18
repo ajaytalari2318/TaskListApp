@@ -31,10 +31,20 @@ const clearEditing = () => setTaskToEdit(null);
     setTasks((prev) => [...prev, task]);
   }
 };
+const updateRemarks = (taskId, newRemarks) => {
+  setTasks((prev) =>
+    prev.map((t) =>
+      t.id === taskId ? { ...t, remarks: newRemarks } : t
+    )
+  );
+};
+const deleteTask = (taskToDelete) => {
+  setTasks((prev) => prev.filter((t) => t !== taskToDelete));
+};
 
 
   return (
-  <TaskContext.Provider value={{ tasks, addTask, taskToEdit, startEditing, clearEditing }}>
+  <TaskContext.Provider value={{ tasks, addTask, taskToEdit, startEditing, clearEditing,updateRemarks,deleteTask}}>
       {children}
     </TaskContext.Provider>
   );

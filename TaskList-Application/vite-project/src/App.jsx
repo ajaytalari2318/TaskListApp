@@ -7,6 +7,7 @@ import { TaskProvider } from './Components/Context';
 import TaskGrid from './Components/TaskGrid';
 import EditTask from './Components/EditTask';
 import Profile from './Components/Profile';
+import Home from './Components/Home'; // Import the new wrapper
 
 function App() {
   return (
@@ -14,14 +15,15 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
+          <Route path="/" element={<Home />} /> {/* Use Home instead of TaskGrid */}
           <Route path="/TaskCreation" element={<TaskCreation />} />
-          <Route path="/" element={<TaskGrid />} />
-          <Route path='/EditTask' element={<EditTask/>}/>
-           <Route path='/Profile' element={<Profile/>}/>
+          <Route path="/EditTask" element={<EditTask />} />
+          <Route path="/Profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </TaskProvider>
   );
 }
+
 
 export default App;

@@ -6,7 +6,7 @@ function Tasks() {
 
   return (
     <div>
-         <h1 className="text-2xl font-semibold mb-1 mt-0 absolute top-22 bottom-0">Your Tasks -</h1>
+         <h1 className="text-2xl font-semibold mb-1 mt-0 absolute top-22 bottom-2">Your Tasks -</h1>
       {tasks.length === 0 ? (
         <div className="text-center text-gray-500 text-lg mt-10">No Tasks Added</div>
       ) : (
