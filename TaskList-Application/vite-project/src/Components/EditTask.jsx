@@ -15,7 +15,7 @@ function EditTask() {
   // Redirect if no task is selected
   useEffect(() => {
     if (!taskToEdit) {
-      navigate('/');
+      //navigate('/');
     } else {
       setSubject(taskToEdit.subject);
       setDescription(taskToEdit.description);
@@ -24,33 +24,31 @@ function EditTask() {
     }
   }, [taskToEdit, navigate]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-    const newTask = { subject, description, eta, progress };
+  const newTask = { subject, description, eta, progress };
 
-    // Validation
-    if (!subject || !description || !eta || !progress) {
-      setMsg('⚠️ Please fill out all fields.');
-      setTimeout(() => setMsg(''), 3000);
-      return;
-    }
+  if (!subject || !description || !eta || !progress) {
+    setMsg('⚠️ Please fill out all fields.');
+    setTimeout(() => setMsg(''), 3000);
+    return;
+  }
 
-    // No changes check
-    if (JSON.stringify(taskToEdit) === JSON.stringify(newTask)) {
-      setMsg('⚠️ No changes detected.');
-      setTimeout(() => setMsg(''), 3000);
-      return;
-    }
+  if (JSON.stringify(taskToEdit) === JSON.stringify(newTask)) {
+    setMsg('⚠️ No changes detected.');
+    setTimeout(() => setMsg(''), 3000);
+    return;
+  }
 
-    addTask(newTask);
-    clearEditing();
-    setMsg('✅ Task updated successfully!');
-    setTimeout(() => {
-      setMsg('');
-      navigate('/');
-    }, 2000);
-  };
+  addTask(newTask);
+  clearEditing();
+  setMsg('✅ Task updated successfully!');
+
+  setTimeout(() => setMsg(''), 1000);
+  setTimeout(() => navigate('/'), 1000);
+};
+
 
   const handleCancel = () => {
     clearEditing();
@@ -64,6 +62,13 @@ function EditTask() {
       {msg && (
         <div className="mb-4 text-center text-green-600 font-medium transition-opacity duration-300">
           {msg}
+           <div className='flex justify-center items-center absolute top-0 bottom-5 right-185'>
+                            <div class="flex flex-row gap-2">
+                                <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce"></div>
+                                <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.3s]"></div>
+                                <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.5s]"></div>
+                            </div>
+                        </div>
         </div>
       )}
 
@@ -130,6 +135,7 @@ function EditTask() {
           className="bg-green-400 hover:bg-green-500 text-white px-6 py-2 rounded-md font-semibold shadow-sm transition-all duration-200 ease-in-out cursor-pointer"
         >
           ✅ Update Task
+          
         </button>
         <button
           type="button"

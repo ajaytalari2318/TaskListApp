@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { TaskContext } from './Context';
+import { useNavigate } from 'react-router-dom';
 
 function TaskCreation() {
     const [subject, setSubject] = useState('');
@@ -19,6 +20,7 @@ function TaskCreation() {
         }
     }, [taskToEdit]);
 
+    const navigate = useNavigate();
 
 
     const handleSubmit = (e) => {
@@ -40,8 +42,9 @@ function TaskCreation() {
         setEta('');
         setProgress('');
         setMsg('✅ Task added successfully!');
-        setTimeout(() => setMsg(''), 2000);
-    };
+        setTimeout(() => { setMsg(''); navigate('/'); }, 1000);
+    }
+
     const isFormValid = subject && description && eta && progress;
     return (
         <form onSubmit={handleSubmit} className="max-w-xl mx-auto bg-white rounded-lg shadow-md p-8">
@@ -138,8 +141,16 @@ function TaskCreation() {
                 {msg && (
                     <div className="mt-2 text-green-600 font-medium transition-opacity duration-300">
                         {msg}
+                        <div className='flex justify-center items-center absolute top-0 bottom-5 right-185'>
+                            <div class="flex flex-row gap-2">
+                                <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce"></div>
+                                <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.3s]"></div>
+                                <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.5s]"></div>
+                            </div>
+                        </div>
                     </div>
                 )}
+
             </div>
         </form>
     );
